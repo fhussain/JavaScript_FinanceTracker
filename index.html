@@ -12,10 +12,20 @@
 <body>
     <div>
         <div class="header">My Finance Tracker</div>
+        <div class="header2" id="myIncome">My Income: $0</div>
         <div class="header2" id="totalExpenses">Total Expense:$0</div>
+        <div class="header2" id="balance">Balance: $</div>
         <div class="main">
-            <input type="number" id="expense" min="1" placeholder="Enter the expense: ">
-            <button id="addBtn" class="btn btn-primary">Enter Expense</button>
+            <div class="row">
+                <div class="col-md"><input type="number" id="income" min="1" placeholder="Enter Your Income: ">
+                    <button id="addIncome" class="btn btn-primary">Monthly Income</button>
+                </div>
+
+                <div class="col-md"><input type="number" id="expense" min="1" placeholder="Enter the expense: ">
+                    <button id="addExpense" class="btn btn-primary">Expense</button>
+                </div>
+            </div>
+
             <div id="cardContainer" class="d-flex flex-wrap mt-3"></div>
 
         </div>

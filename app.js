@@ -1,14 +1,29 @@
 
-document.querySelector("#addBtn").addEventListener("click", checkNumber);
+document.querySelector("#addExpense").addEventListener("click", checkNumber);
+document.querySelector("#addIncome").addEventListener("click", setIncome);
 
 expenses = [];
+income = 0;
+totalExpense = 0;
+function setIncome() {
+    let value = document.getElementById("income").value;
+    if (value > 0) {
+        income = parseFloat(value);
+        document.getElementById("myIncome").textContent = "Total Income $" + income;
+        setBalance();
+    }
+    else {
+        alert("Please enter a positive number!");
+    }
+    document.getElementById("income").value = ""; // clear input
+}
 function checkNumber() {
     let value = document.getElementById("expense").value;
     if (value > 0) {
-        alert("Valid positive number: " + value);
         expenses.push(parseFloat(value));
         displayNumbers();
         calculateTotalExpense();
+        setBalance();
     } else {
         alert("Please enter a positive number!");
     }
@@ -25,12 +40,14 @@ function displayNumbers() {
 
         card.innerHTML = `
             <div class="card-body d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">$${exp}</h5>
-                <button id="closeButton" type="button" class="btn btn-sm btn-danger" data-index="${index}">×</button>
+            <h5 class="card-title mb-0">$${exp}</h5>
+            <button id="closeButton" type="button" class="btn btn-sm btn-danger" data-index="${index}">×</button>
             </div>
         `;
         container.appendChild(card);
     });
+    /* */
+
     document.querySelectorAll("#closeButton").forEach(btn => {
         btn.addEventListener("click", function () {
             let index = this.getAttribute("data-index");
@@ -44,6 +61,11 @@ function calculateTotalExpense() {
     for (let i = 0; i < expenses.length; i++) {
         sum += expenses[i];
     }
+    totalExpense = sum;
     document.getElementById("totalExpenses").textContent = "Total Expense $" + sum;
 }
+function setBalance() {
+    let balance = income - totalExpense;
+    document.getElementById("balance").textContent = "Balance $" + balance;
 
+}
