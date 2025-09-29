@@ -1,19 +1,23 @@
 transactions = [];
-income = 0;
-expense = 0;
-balance = 0;
+
 categories = {
     Income: ["Salary", "Freelance", "Bonus"],
     Expense: ["Food", "Bills", "Rent", "Shopping", "Transport", "Grocery"]
 };
-
+window.onload = function () {
+    const saved = localStorage.getItem("transactions");
+    if (saved) {
+        transactions = JSON.parse(saved); // restore
+        displayTransaction(); // show them again
+        calculateAndDisplayBalance();
+    }
+};
 function storeTransaction() {
     const type = document.getElementById("transactionType");
     const categorySelect = document.getElementById("categoryType");
     const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
     const amount = parseFloat(document.getElementById("amount").value);
     const description = document.getElementById("description").value;
-    calculateAndDisplayBalance(type.value, amount);
 
     const transaction = {
         id: transactions.length + 1,
@@ -23,6 +27,9 @@ function storeTransaction() {
         category: categoryText
     };
     transactions.push(transaction);
+    calculateAndDisplayBalance();
+
+    localStorage.setItem("transactions", JSON.stringify(transactions));
     displayTransaction();
     document.getElementById("transaction_form").reset();
 }
@@ -59,14 +66,19 @@ function displayTransaction() {
         list.appendChild(li);
     });
 }
-function calculateAndDisplayBalance(type, amount) {
-    if (type == "Income") {
-        income += amount;
-        document.getElementById("myIncome").textContent = "Total Income: $" + income;
-    }
-    else {
-        expense += amount;
-        document.getElementById("totalExpenses").textContent = "Total Expense: $" + expense;
+function calculateAndDisplayBalance() {
+    let income = 0;
+    let expense = 0;
+    let balance = 0;
+    for (let i = 0; i < transactions.length; i++) {
+        if (transactions[i].type == "Income") {
+            income += transactions[i].amount;
+            document.getElementById("myIncome").textContent = "Total Income: $" + income;
+        }
+        else {
+            expense += transactions[i].amount;
+            document.getElementById("totalExpenses").textContent = "Total Expense: $" + expense;
+        }
     }
     balance = income - expense;
     document.getElementById("balance").innerHTML =
