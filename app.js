@@ -1,71 +1,50 @@
-
-document.querySelector("#addExpense").addEventListener("click", checkNumber);
-document.querySelector("#addIncome").addEventListener("click", setIncome);
-
-expenses = [];
+transactions = [];
 income = 0;
-totalExpense = 0;
-function setIncome() {
-    let value = document.getElementById("income").value;
-    if (value > 0) {
-        income = parseFloat(value);
-        document.getElementById("myIncome").textContent = "Total Income $" + income;
-        setBalance();
+expense = 0;
+balance = 0;
+
+function storeTransaction() {
+    // alert("form submitted");
+    const type = document.getElementById("transactionType").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const description = document.getElementById("description").value;
+    const categorySelect = document.getElementById("categoryType");
+    const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
+    //  alert("type" + type + "amount:" + amount + "description" + description);
+    if (type == "1") {
+        income += amount;
+        document.getElementById("myIncome").textContent = "Total Income: $" + income;
     }
     else {
-        alert("Please enter a positive number!");
+        expense += amount;
+        document.getElementById("totalExpenses").textContent = "Total Expense: $" + expense;
     }
-    document.getElementById("income").value = ""; // clear input
-}
-function checkNumber() {
-    let value = document.getElementById("expense").value;
-    if (value > 0) {
-        expenses.push(parseFloat(value));
-        displayNumbers();
-        calculateTotalExpense();
-        setBalance();
-    } else {
-        alert("Please enter a positive number!");
-    }
-    document.getElementById("expense").value = ""; // clear input
-}
-function displayNumbers() {
-    let container = document.getElementById("cardContainer");
-    container.innerHTML = ""; // clear previous cards
+    balance = income - expense;
+    document.getElementById("balance").textContent = "Balance: $" + balance;
 
-    expenses.forEach((exp, index) => {
-        let card = document.createElement("div");
-        card.classList.add("card", "text-center", "shadow-sm", "m-2");
-        card.style.width = "8rem";
+    const transaction = {
+        id: transactions.length + 1,
+        type: type,
+        amount: amount,
+        description: description,
+        category: categoryText
+    };
+    transactions.push(transaction);
+    displayTransaction();
+    document.getElementById("transaction_form").reset();
+}
+function displayTransaction() {
+    const list = document.getElementById("transaction_list");
+    list.innerHTML = ""; // clear old list first
 
-        card.innerHTML = `
-            <div class="card-body d-flex justify-content-between align-items-center">
-            <h5 class="card-title mb-0">$${exp}</h5>
-            <button id="closeButton" type="button" class="btn btn-sm btn-danger" data-index="${index}">×</button>
-            </div>
-        `;
-        container.appendChild(card);
+    transactions.forEach(t => {
+        const li = document.createElement("li");
+
+        // Make it readable
+        li.innerHTML = `${t.type == "1" ? "Income" : "Expense"}<br> -Description: ${t.description}:<br> 
+        Amount: $${t.amount}<br>
+        Category: ${t.category}`
+
+        list.appendChild(li);
     });
-    /* */
-
-    document.querySelectorAll("#closeButton").forEach(btn => {
-        btn.addEventListener("click", function () {
-            let index = this.getAttribute("data-index");
-            expenses.splice(index, 1); // remove from array
-            displayNumbers(); // refresh cards
-        });
-    });
-}
-function calculateTotalExpense() {
-    let sum = 0;
-    for (let i = 0; i < expenses.length; i++) {
-        sum += expenses[i];
-    }
-    totalExpense = sum;
-    document.getElementById("totalExpenses").textContent = "Total Expense $" + sum;
-}
-function setBalance() {
-    let balance = income - totalExpense;
-    document.getElementById("balance").textContent = "Balance $" + balance;
-
 }

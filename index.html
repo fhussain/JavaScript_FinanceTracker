@@ -7,33 +7,97 @@
     <title>My Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 
 <body>
     <div>
         <div class="header">My Finance Tracker</div>
-        <div class="header2" id="myIncome">My Income: $0</div>
-        <div class="header2" id="totalExpenses">Total Expense:$0</div>
-        <div class="header2" id="balance">Balance: $</div>
-        <div class="main">
-            <div class="row">
-                <div class="col-md"><input type="number" id="income" min="1" placeholder="Enter Your Income: ">
-                    <button id="addIncome" class="btn btn-primary">Monthly Income</button>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="jar.jpg" alt="First slide">
                 </div>
-
-                <div class="col-md"><input type="number" id="expense" min="1" placeholder="Enter the expense: ">
-                    <button id="addExpense" class="btn btn-primary">Expense</button>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="green.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="young.jpg" alt="Third slide">
                 </div>
             </div>
-
-            <div id="cardContainer" class="d-flex flex-wrap mt-3"></div>
-
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
+    </div>
+    <div class="header2" id="myIncome">My Income: $0</div>
+    <div class="header2" id="totalExpenses">Total Expense:$0</div>
+    <div class="header2" id="balance">Balance: $</div>
+    <div class="main">
+        <div class="row">
+            <form id="transaction_form" onsubmit="event.preventDefault(); storeTransaction();" class="form"
+                class="col-6">
+                <div class="form-group row input-group mx-auto mb-3" style="width: 300px;">
+                    <h2 class="h2">Add Transaction</h2>
+                    <select class="custom-select" id="transactionType" required>
+                        <option selected>Select Transaction Type:</option>
+                        <option value="1">Income</option>
+                        <option value="2">Expense</option>
+                    </select>
+                </div>
+                <div class="w-100"></div>
+                <div class="form-group row input-group mx-auto mb-3" style="width: 300px;">
+                    <input type="number" id="amount" min="1" placeholder="Enter Amount: " required>
 
+                </div>
+                <div class="w-100"></div>
+                <div class="form-group row input-group  mx-auto mb-3" style="width: 300px;">
+                    <input type="text" id="description" placeholder="Enter Description: " required>
 
-
+                </div>
+                <div class="w-100"></div>
+                <div class="form-group row input-group mx-auto mb-3" style="width: 300px;">
+                    <select class="custom-select" id="categoryType" required>
+                        <option selected>Select Category Type:</option>
+                        <option value="1">Salary</option>
+                        <option value="2">Food</option>
+                        <option value="3">Transport</option>
+                        <option value="4">Grocery</option>
+                        <option value="5">bills</option>
+                        <option value="6">Shopping</option>
+                        <option value="7">Bonus</option>
+                        <option value="8">FreeLance</option>
+                        <option value="9">Others</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <div class="col-6 form mx-auto">
+                <h2 class="h2">Transaction History</h2>
+                <ul id="transaction_list" class="transaction"></ul>
+            </div>
+        </div>
+    </div>
     </div>
     <script src="app.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

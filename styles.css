@@ -5,16 +5,35 @@
 /* Blue */
 .header {
     background-color: #4caf50;
-    color: white;
+
+    color: darkblue;
     text-align: center;
     padding: 1em;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     /* Example */
-    font-size: 28px;
+    font-size: 40px;
     /* Optional: change size */
     font-weight: bold;
     /* Optional: make it bold */
+    text-shadow: 2px 2px 5px gray;
 }
+
+#carouselExampleIndicators {
+    max-width: 1600px;
+    /* adjust width */
+    max-height: 600px;
+    /* adjust height */
+    margin: auto;
+    /* center it */
+}
+
+#carouselExampleIndicators img {
+    height: 600px;
+    /* fixed height */
+    object-fit: cover;
+    /* crop instead of stretch */
+}
+
 
 .header2 {
     background-color: blue;
@@ -32,6 +51,27 @@
 .nav {
     background-color: #ab5454;
     overflow: hidden;
+}
+
+.form {
+    border: 5px solid black;
+    padding: 30px;
+    border-radius: 20px;
+    width: 600px;
+    margin: auto;
+}
+
+.h2 {
+    color: black;
+    text-align: left;
+}
+
+.transaction {
+    border: 1px solid black;
+    text-align: left;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
 }
 
 .main {
