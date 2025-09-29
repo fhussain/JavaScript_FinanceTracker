@@ -41,8 +41,8 @@
             </a>
         </div>
     </div>
-    <div class="header2" id="myIncome">My Income: $0</div>
-    <div class="header2" id="totalExpenses">Total Expense:$0</div>
+    <div class="header2 Income" id="myIncome">My Income: $0</div>
+    <div class="header2 Expense" id="totalExpenses">Total Expense:$0</div>
     <div class="header2" id="balance">Balance: $</div>
     <div class="main">
         <div class="row">
@@ -50,10 +50,10 @@
                 class="col-6">
                 <div class="form-group row input-group mx-auto mb-3" style="width: 300px;">
                     <h2 class="h2">Add Transaction</h2>
-                    <select class="custom-select" id="transactionType" required>
+                    <select class="custom-select" id="transactionType" onchange="displayCategory();" required>
                         <option selected>Select Transaction Type:</option>
-                        <option value="1">Income</option>
-                        <option value="2">Expense</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
                     </select>
                 </div>
                 <div class="w-100"></div>
@@ -70,15 +70,7 @@
                 <div class="form-group row input-group mx-auto mb-3" style="width: 300px;">
                     <select class="custom-select" id="categoryType" required>
                         <option selected>Select Category Type:</option>
-                        <option value="1">Salary</option>
-                        <option value="2">Food</option>
-                        <option value="3">Transport</option>
-                        <option value="4">Grocery</option>
-                        <option value="5">bills</option>
-                        <option value="6">Shopping</option>
-                        <option value="7">Bonus</option>
-                        <option value="8">FreeLance</option>
-                        <option value="9">Others</option>
+
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

@@ -2,29 +2,22 @@ transactions = [];
 income = 0;
 expense = 0;
 balance = 0;
+categories = {
+    Income: ["Salary", "Freelance", "Bonus"],
+    Expense: ["Food", "Bills", "Rent", "Shopping", "Transport", "Grocery"]
+};
 
 function storeTransaction() {
-    // alert("form submitted");
-    const type = document.getElementById("transactionType").value;
-    const amount = parseFloat(document.getElementById("amount").value);
-    const description = document.getElementById("description").value;
+    const type = document.getElementById("transactionType");
     const categorySelect = document.getElementById("categoryType");
     const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
-    //  alert("type" + type + "amount:" + amount + "description" + description);
-    if (type == "1") {
-        income += amount;
-        document.getElementById("myIncome").textContent = "Total Income: $" + income;
-    }
-    else {
-        expense += amount;
-        document.getElementById("totalExpenses").textContent = "Total Expense: $" + expense;
-    }
-    balance = income - expense;
-    document.getElementById("balance").textContent = "Balance: $" + balance;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const description = document.getElementById("description").value;
+    calculateAndDisplayBalance(type.value, amount);
 
     const transaction = {
         id: transactions.length + 1,
-        type: type,
+        type: type.value,
         amount: amount,
         description: description,
         category: categoryText
@@ -32,6 +25,21 @@ function storeTransaction() {
     transactions.push(transaction);
     displayTransaction();
     document.getElementById("transaction_form").reset();
+}
+function displayCategory() {
+    const type = document.getElementById("transactionType");
+    const categorySelect = document.getElementById("categoryType");
+    const selectedType = type.value;
+    categorySelect.innerHTML = "<option value=''>Select Category</option>";
+    if (selectedType && categories[selectedType]) {
+        categories[selectedType].forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat;
+            option.text = cat;
+            categorySelect.appendChild(option);
+        });
+    }
+
 }
 function displayTransaction() {
     const list = document.getElementById("transaction_list");
@@ -41,10 +49,26 @@ function displayTransaction() {
         const li = document.createElement("li");
 
         // Make it readable
-        li.innerHTML = `${t.type == "1" ? "Income" : "Expense"}<br> -Description: ${t.description}:<br> 
+        li.innerHTML = `<span class="${t.type}">
+        ${t.type}</span><br> 
+        -Description: ${t.description}<br> 
         Amount: $${t.amount}<br>
         Category: ${t.category}`
 
+
         list.appendChild(li);
     });
+}
+function calculateAndDisplayBalance(type, amount) {
+    if (type == "Income") {
+        income += amount;
+        document.getElementById("myIncome").textContent = "Total Income: $" + income;
+    }
+    else {
+        expense += amount;
+        document.getElementById("totalExpenses").textContent = "Total Expense: $" + expense;
+    }
+    balance = income - expense;
+    document.getElementById("balance").innerHTML =
+        `<span class="${balance > 0 ? "Income" : "Expense"} ">Balance: $${balance}</span>`
 }
