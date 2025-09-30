@@ -12,6 +12,12 @@ window.onload = function () {
         calculateAndDisplayBalance();
     }
 };
+document.getElementById("clear").addEventListener("click", function (event) {
+    transactions = [];
+    document.getElementById("transaction_list").innerHTML = "";
+    localStorage.removeItem("transactions");
+    localStorage.clear();
+})
 document.getElementById("searchForm").addEventListener("submit", function (event) {
     event.preventDefault();
     const query = document.getElementById("searchBar").value.toLowerCase();

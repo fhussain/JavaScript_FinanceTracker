@@ -37,6 +37,8 @@
                         aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
+                <button class="btn btn-primary mx-2">Login</button>
+                <button class="btn btn-primary">Sign Up</button>
             </div>
         </nav>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -101,9 +103,13 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             <div class="col-6 form mx-auto">
-                <h2 class="h2">Transaction History</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="h2">Transaction History</h2>
+                    <button type="button" id="clear" class="btn btn-danger btn-sm">Clear History</button>
+                </div>
+
                 <ul id="transaction_list" class="transaction"></ul>
-            </div>
+            </div>.
         </div>
     </div>
     </div>
