@@ -8,10 +8,20 @@ window.onload = function () {
     const saved = localStorage.getItem("transactions");
     if (saved) {
         transactions = JSON.parse(saved); // restore
-        displayTransaction(); // show them again
+        displayTransaction(transactions); // show them again
         calculateAndDisplayBalance();
     }
 };
+document.getElementById("searchForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    const query = document.getElementById("searchBar").value.toLowerCase();
+    const searched = transactions.filter(t =>
+        t.description.toLowerCase().includes(query) ||
+        t.type.toLowerCase().includes(query) ||
+        t.category.toLowerCase().includes(query)
+    )
+    displayTransaction(searched);
+})
 function storeTransaction() {
     const type = document.getElementById("transactionType");
     const categorySelect = document.getElementById("categoryType");
@@ -30,7 +40,7 @@ function storeTransaction() {
     calculateAndDisplayBalance();
 
     localStorage.setItem("transactions", JSON.stringify(transactions));
-    displayTransaction();
+    displayTransaction(transactions);
     document.getElementById("transaction_form").reset();
 }
 function displayCategory() {
@@ -48,11 +58,11 @@ function displayCategory() {
     }
 
 }
-function displayTransaction() {
+function displayTransaction(sentTransactions) {
     const list = document.getElementById("transaction_list");
     list.innerHTML = ""; // clear old list first
 
-    transactions.forEach(t => {
+    sentTransactions.forEach(t => {
         const li = document.createElement("li");
 
         // Make it readable
